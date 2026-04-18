@@ -158,13 +158,15 @@ export function StoryApproach() {
           ref={pinRef}
           className={cn(
             "relative",
-            !reduceBool && "min-h-[210vh] sm:min-h-[260vh] lg:min-h-[320vh]",
+            !reduceBool &&
+              "min-h-[155vh] sm:min-h-[220vh] lg:min-h-[300vh]",
           )}
         >
         <div
           className={cn(
-            "sticky top-0 z-[2] flex min-h-[100dvh] items-center py-16 md:py-20 lg:py-24",
-            !reduceBool && "lg:min-h-screen",
+            "sticky top-0 z-[2] py-16 md:py-20 lg:py-24",
+            !reduceBool &&
+              "lg:flex lg:min-h-[min(100dvh,100svh)] lg:items-center",
           )}
         >
           <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-5">

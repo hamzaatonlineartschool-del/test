@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import { ArrowUpRight, Orbit } from "lucide-react";
 import { ParallaxImageFill } from "@/components/motion/parallax";
 import { SectionDepth } from "@/components/motion/section-depth";
@@ -77,22 +77,40 @@ const cardReveal = {
 const stepPanelClass =
   "h-[210px] shrink-0 sm:h-[230px] lg:h-[260px]";
 
+/** Tailwind `lg` — scroll-strip + tall pin only make sense on wide layouts */
+function useIsLg() {
+  return useSyncExternalStore(
+    (onStoreChange) => {
+      const mq = window.matchMedia("(min-width: 1024px)");
+      mq.addEventListener("change", onStoreChange);
+      return () => mq.removeEventListener("change", onStoreChange);
+    },
+    () => window.matchMedia("(min-width: 1024px)").matches,
+    () => false,
+  );
+}
+
 export function StoryApproach() {
   const reduce = useReducedMotion();
   const reduceBool = Boolean(reduce);
+  const isLg = useIsLg();
+  /** Tall scroll track + animated strip: desktop only (avoids huge empty scroll on mobile/tablet) */
+  const useScrollStrip = !reduceBool && isLg;
   const sectionRef = useRef<HTMLElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: pinRef,
-    offset: reduceBool ? ["start end", "end start"] : ["start start", "end end"],
+    offset: useScrollStrip
+      ? ["start start", "end end"]
+      : ["start end", "end start"],
   });
 
   /** Strip moves up through three steps: 0 → -66.67% of strip height (3 panels) */
   const stripY = useTransform(
     scrollYProgress,
     [0, 1],
-    reduceBool ? ["0%", "0%"] : ["0%", "-66.666%"],
+    useScrollStrip ? ["0%", "-66.666%"] : ["0%", "0%"],
   );
 
   return (
@@ -104,7 +122,7 @@ export function StoryApproach() {
     >
       <SectionDepth sectionRef={sectionRef} tone="cyan" />
 
-      {!reduceBool ? (
+      {useScrollStrip ? (
         <motion.div
           aria-hidden
           className="pointer-events-none absolute -left-[25%] top-[8%] h-[min(520px,55vh)] w-[85%] rounded-full bg-cyan-500/[0.09] blur-[120px]"
@@ -116,7 +134,7 @@ export function StoryApproach() {
           }}
         />
       ) : null}
-      {!reduceBool ? (
+      {useScrollStrip ? (
         <motion.div
           aria-hidden
           className="pointer-events-none absolute -right-[20%] bottom-[5%] h-[420px] w-[65%] rounded-full bg-sky-600/[0.07] blur-[100px]"
@@ -153,20 +171,18 @@ export function StoryApproach() {
         style={{ originX: 0.5 }}
       />
 
-      {/* Tall scroll track: pin content while user scrolls through three motions */}
+      {/* Scroll track only when strip animation is active (lg+); otherwise natural height */}
         <div
           ref={pinRef}
           className={cn(
             "relative",
-            !reduceBool &&
-              "min-h-[155vh] sm:min-h-[220vh] lg:min-h-[300vh]",
+            useScrollStrip && "min-h-[155vh]",
           )}
         >
         <div
           className={cn(
             "sticky top-0 z-[2] py-16 md:py-20 lg:py-24",
-            !reduceBool &&
-              "lg:flex lg:min-h-[min(100dvh,100svh)] lg:items-center",
+            useScrollStrip && "lg:flex lg:items-start",
           )}
         >
           <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-5">
@@ -216,7 +232,7 @@ export function StoryApproach() {
                       </p>
                     </motion.div>
 
-                    {!reduceBool ? (
+                    {useScrollStrip ? (
                       <p
                         className="mt-8 hidden text-[11px] uppercase tracking-[0.28em] text-white/30 lg:block"
                         aria-hidden
@@ -269,9 +285,19 @@ export function StoryApproach() {
                               Model at a glance
                             </p>
                             <p className="mt-2 max-w-xs text-sm leading-relaxed text-white/55">
-                              Three motions we repeat with every engagement —
-                              clarity first, then scale, then compound. Scroll to
-                              step through each.
+                              {useScrollStrip ? (
+                                <>
+                                  Three motions we repeat with every engagement
+                                  — clarity first, then scale, then compound.
+                                  Scroll to step through each.
+                                </>
+                              ) : (
+                                <>
+                                  Three motions we repeat with every engagement
+                                  — clarity first, then scale, then compound.
+                                  Each step is outlined below.
+                                </>
+                              )}
                             </p>
                           </div>
                           <motion.div
@@ -301,7 +327,7 @@ export function StoryApproach() {
                           </motion.div>
                         </div>
 
-                        {reduceBool ? (
+                        {!useScrollStrip ? (
                           <motion.ul
                             className="space-y-0 border-t border-white/[0.06]"
                             variants={{

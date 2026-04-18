@@ -154,20 +154,20 @@ export function StoryApproach() {
       />
 
       {/* Tall scroll track: pin content while user scrolls through three motions */}
-      <div
-        ref={pinRef}
-        className={cn(
-          "relative",
-          !reduceBool && "min-h-[280vh] lg:min-h-[320vh]",
-        )}
-      >
+        <div
+          ref={pinRef}
+          className={cn(
+            "relative",
+            !reduceBool && "min-h-[210vh] sm:min-h-[260vh] lg:min-h-[320vh]",
+          )}
+        >
         <div
           className={cn(
             "sticky top-0 z-[2] flex min-h-[100dvh] items-center py-16 md:py-20 lg:py-24",
             !reduceBool && "lg:min-h-screen",
           )}
         >
-          <div className="relative mx-auto w-full max-w-6xl px-5">
+          <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-5">
             <div className="relative rounded-[2rem] border border-white/[0.09] bg-gradient-to-b from-white/[0.04] to-transparent p-1 shadow-[0_0_0_1px_rgba(255,255,255,0.04),inset_0_1px_0_rgba(255,255,255,0.06)] md:rounded-[2.25rem] md:p-2">
               <div className="rounded-[1.65rem] bg-[#04060c]/80 px-6 py-12 backdrop-blur-sm md:rounded-[1.85rem] md:px-10 md:py-14 lg:px-12 lg:py-16">
                 <div className="grid gap-14 lg:grid-cols-[1fr_1.08fr] lg:items-start lg:gap-16 xl:gap-20">

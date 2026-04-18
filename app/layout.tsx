@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Syne } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
@@ -19,6 +19,12 @@ export const metadata: Metadata = {
   title: "The Corp Haven | IT Outsourcing & BPO",
   description:
     "Your gateway to seamless outsourcing. Innovative IT outsourcing services tailored to your needs.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#05080f",
 };
 
 export default function RootLayout({

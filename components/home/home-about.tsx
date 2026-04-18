@@ -74,7 +74,7 @@ export function HomeAbout() {
       ref={sectionRef}
       id="about"
       aria-labelledby="about-heading"
-      className="relative scroll-mt-20 overflow-hidden border-t border-white/[0.06] bg-[#03050a] px-5 py-24 md:px-10 md:py-32 lg:py-36"
+      className="relative scroll-mt-20 overflow-x-hidden border-t border-white/[0.06] bg-[#03050a] px-5 py-24 md:px-10 md:py-32 lg:py-36"
     >
       {/* Atmosphere */}
       <div

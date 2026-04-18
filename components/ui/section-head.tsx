@@ -68,7 +68,7 @@ export function SectionHead({
         <h2
           id={titleId}
           className={cn(
-            "mt-4 font-display text-[clamp(1.85rem,3.8vw,3.25rem)] font-semibold leading-[1.08] tracking-tight",
+            "mt-4 font-display text-[clamp(1.5rem,5vw,3.25rem)] font-semibold leading-[1.08] tracking-tight",
             light ? "text-[#0f172a]" : "text-white",
           )}
         >
@@ -77,7 +77,7 @@ export function SectionHead({
         {description ? (
           <p
             className={cn(
-              "mt-4 text-lg leading-relaxed",
+              "mt-4 text-base leading-relaxed md:text-lg",
               light ? "text-slate-600" : "text-white/60",
             )}
           >

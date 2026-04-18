@@ -156,9 +156,9 @@ export function StoryHero() {
       </div>
 
       <div className="relative z-10 flex min-h-[100dvh] flex-col px-5 pb-10 pt-24 md:px-10 md:pb-14 md:pt-28 lg:px-12">
-        <div className="flex min-h-0 flex-1 flex-col gap-10 lg:flex-row lg:items-stretch lg:justify-between lg:gap-12">
+        <div className="flex flex-col gap-8 md:gap-10 lg:flex-row lg:items-stretch lg:justify-between lg:gap-12">
           {/* Left: headline + trust */}
-          <div className="flex max-w-xl flex-col justify-center lg:max-w-[min(36rem,52%)] lg:pt-4">
+          <div className="flex max-w-xl flex-col justify-start lg:justify-center lg:max-w-[min(36rem,52%)] lg:pt-4">
             <motion.p
               key={`kicker-${slide.id}`}
               initial={reduceMotion ? false : { opacity: 0 }}
@@ -199,7 +199,7 @@ export function StoryHero() {
               </AnimatePresence>
             )}
 
-            <div className="mt-10 flex flex-wrap items-center gap-6">
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
               <div className="flex items-center gap-2.5">
                 <Stars />
                 <span className="text-sm font-medium text-white/75">
@@ -208,7 +208,7 @@ export function StoryHero() {
               </div>
               <a
                 href="tel:+441273920627"
-                className="inline-flex items-center gap-2 text-sm font-medium text-white/70 transition hover:text-white"
+                className="inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-white/70 transition hover:text-white"
               >
                 <Phone className="size-4 text-sky-400/90" aria-hidden />
                 UK +44 1273 920627
@@ -235,14 +235,14 @@ export function StoryHero() {
           {/* Right: pillars + slide rail */}
           <div className="flex flex-col items-stretch gap-8 lg:w-[min(22rem,38%)] lg:items-end lg:justify-between lg:pt-6">
             <nav
-              className="flex flex-col gap-1 lg:items-end"
+              className="flex flex-col gap-1 items-start lg:items-end"
               aria-label="Focus areas"
             >
               {heroPillars.map((p) => (
                 <Link
                   key={p.href}
                   href={p.href}
-                  className="group flex items-center justify-end gap-3 py-2 text-right font-display text-lg font-medium tracking-tight text-white/90 transition hover:text-white md:text-xl"
+                  className="group flex min-h-[44px] items-center justify-start gap-3 py-2 text-left font-display text-lg font-medium tracking-tight text-white/90 transition hover:text-white md:text-xl lg:justify-end lg:text-right"
                 >
                   <span>{p.label}</span>
                   <ArrowUpRight className="size-5 shrink-0 text-white/40 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-sky-300" />
@@ -251,7 +251,7 @@ export function StoryHero() {
             </nav>
 
             <div
-              className="flex items-end justify-end gap-2 md:gap-3"
+              className="flex items-end justify-start gap-2 md:gap-3 lg:justify-end"
               role="tablist"
               aria-label="Hero slides"
             >
@@ -292,7 +292,7 @@ export function StoryHero() {
         {/* Mega type — bleeds at bottom */}
         <div className="relative z-0 mt-6 overflow-hidden pb-2 md:mt-10">
           <p
-            className="pointer-events-none select-none whitespace-nowrap text-center font-display text-[clamp(2.75rem,17vw,12rem)] font-bold leading-[0.82] tracking-[-0.02em] text-white/[0.09] md:text-left"
+            className="pointer-events-none select-none whitespace-nowrap text-center font-display text-[clamp(1.75rem,12vw,12rem)] font-bold leading-[0.82] tracking-[-0.02em] text-white/[0.09] md:text-left"
             aria-hidden
           >
             CORP HAVEN
